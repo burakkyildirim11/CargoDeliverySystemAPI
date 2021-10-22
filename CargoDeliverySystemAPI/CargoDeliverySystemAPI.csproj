@@ -14,5 +14,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Operations\CarrierOperations\Queries\" />
+  </ItemGroup>
+
 
 </Project>

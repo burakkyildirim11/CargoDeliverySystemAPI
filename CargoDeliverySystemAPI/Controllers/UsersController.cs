@@ -1,5 +1,7 @@
 ﻿using CargoDeliverySystemAPI.Data;
 using CargoDeliverySystemAPI.Models;
+using CargoDeliverySystemAPI.Operations.UserOperations.Commands;
+using CargoDeliverySystemAPI.Operations.UserOperations.Queries;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -22,48 +24,37 @@ namespace CargoDeliverySystemAPI.Controllers
             _CargoDeliveryDBContext = CargoDeliveryDBContext;
         }
 
-
-        // GET: api/<UsersController>
-        [HttpGet]
-        public IEnumerable<User> Get()
+        [HttpPost("GetUserLoginControl")]
+        public ActionResult<User> GetUserLoginControl([FromBody] GetUserLoginControlViewModel model)
         {
-            return _CargoDeliveryDBContext.Users;
+            GetUserLoginControlQuery getUserLogin = new GetUserLoginControlQuery(_CargoDeliveryDBContext);
+            getUserLogin.Model = model;
+            return Ok(getUserLogin.Handle());
         }
 
-        // GET api/<UsersController>/5
-        [HttpGet("{id}")]
-        public User Get(int id)
+        [HttpGet("GetAllUser")]
+        public ActionResult<List<User>> GetAllUser()
         {
-            return _CargoDeliveryDBContext.Users.SingleOrDefault(x => x.Id == id);
+            return _CargoDeliveryDBContext.Users.ToList();
         }
 
-        // POST api/<UsersController>
-        [HttpPost]
-        public void Post([FromBody] User user)
+
+        [HttpPost("CreateUser")]
+        public IActionResult CreateUser([FromBody] CreateUserCommandViewModel model)
         {
-            _CargoDeliveryDBContext.Users.Add(user);
-            _CargoDeliveryDBContext.SaveChanges();
+            CreateUserCommand createUser = new CreateUserCommand(_CargoDeliveryDBContext);
+            createUser.Model = model;
+            return Ok(createUser.Handle());
         }
 
-        // PUT api/<UsersController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] User user)
+
+        [HttpPut("UpdateUser")]
+        public IActionResult UpdateUser([FromBody] UpdateUserCommandViewModel model)
         {
-            user.Id = id;
-            _CargoDeliveryDBContext.Users.Update(user);
-            _CargoDeliveryDBContext.SaveChanges();
+            UpdateUserCommand updateUser = new UpdateUserCommand(_CargoDeliveryDBContext);
+            updateUser.Model = model;
+            return Ok(updateUser.Handle());
         }
 
-        // DELETE api/<UsersController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-            var item = _CargoDeliveryDBContext.Users.FirstOrDefault(x => x.Id == id);
-            if (item != null)
-            {
-                _CargoDeliveryDBContext.Users.Remove(item);
-                _CargoDeliveryDBContext.SaveChanges();
-            }
-        }
     }
 }

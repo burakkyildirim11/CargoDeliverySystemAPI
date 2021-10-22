@@ -1,5 +1,6 @@
 ﻿using CargoDeliverySystemAPI.Data;
 using CargoDeliverySystemAPI.Models;
+using CargoDeliverySystemAPI.Operations.CargoOperations.Commands;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,49 +22,36 @@ namespace CargoDeliverySystemAPI.Controllers
             _CargoDeliveryDBContext = CargoDeliveryDBContext;
         }
 
-
-
-        // GET: api/<CargosController>
-        [HttpGet]
-        public IEnumerable<Cargo> Get()
+        [HttpPost("CreateCargo")]
+        public IActionResult CreateCargp([FromBody] CreateCargoViewModel model)
         {
-            return _CargoDeliveryDBContext.Cargos;
+            CreateCargoCommand createCargo = new CreateCargoCommand(_CargoDeliveryDBContext);
+            createCargo.Model = model;
+            return Ok(createCargo.Handle());
         }
 
-        // GET api/<CargosController>/5
-        [HttpGet("{id}")]
-        public Cargo Get(int id)
+        [HttpGet("GetAllCargo")]
+        public ActionResult<List<Cargo>> GetAllCargo()
         {
-            return _CargoDeliveryDBContext.Cargos.SingleOrDefault(x => x.Id == id);
+            return _CargoDeliveryDBContext.Cargos.ToList();
         }
 
-        // POST api/<CargosController>
-        [HttpPost]
-        public void Post([FromBody] Cargo cargo)
+        [HttpDelete("DeleteCargo")]
+        public ActionResult<ResultModel<Cargo>> DeleteCargo(int id)
         {
-            _CargoDeliveryDBContext.Cargos.Add(cargo);
-            _CargoDeliveryDBContext.SaveChanges();
+            DeleteCargoCommands commands = new DeleteCargoCommands(_CargoDeliveryDBContext);
+            commands.CargoId = id;
+            return Ok(commands.Handle());
         }
 
-        // PUT api/<CargosController>/5
-        [HttpPut("{id}")]
-        public void Put(int id,[FromBody] Cargo cargo)
+        [HttpPut("UpdateCargo")]
+        public ActionResult<ResultModel<Cargo>> UpdateCargo(int id)
         {
-            cargo.Id = id;
-            _CargoDeliveryDBContext.Cargos.Update(cargo);
-            _CargoDeliveryDBContext.SaveChanges();
+            UpdateCargoCommand commands = new UpdateCargoCommand(_CargoDeliveryDBContext);
+            commands.CargoId = id;
+            return Ok(commands.Handle());
         }
 
-        // DELETE api/<CargosController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-            var item = _CargoDeliveryDBContext.Cargos.FirstOrDefault(x => x.Id == id);
-            if(item != null)
-            {
-                _CargoDeliveryDBContext.Cargos.Remove(item);
-                _CargoDeliveryDBContext.SaveChanges();
-            }
-        }
+
     }
 }

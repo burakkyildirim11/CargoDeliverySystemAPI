@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 
 namespace CargoDeliverySystemAPI.Data
 {
-    interface ICargoDeliveryDBContext
+    public interface ICargoDeliveryDBContext
     {
         DbSet<Carrier> Carrier { get; set; }
-        DbSet<CarriersLog> CarriersLogs { get; set; }
+        DbSet<CarrierLog> CarriersLogs { get; set; }
         DbSet<User> Users { get; set; }
         DbSet<Cargo> Cargos { get; set; }
+        DbSet<UserCargo> UserCargos { get; set; }
+
+        int SaveChanges();
     }
 }

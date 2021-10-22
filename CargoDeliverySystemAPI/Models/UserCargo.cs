@@ -7,15 +7,12 @@ using System.Threading.Tasks;
 
 namespace CargoDeliverySystemAPI.Models
 {
-    public class CarriersLog
+    public class UserCargo
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public int CarrierId { get; set; }
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
-        public string Message { get; set; }
-        public DateTime Date { get; set; }
+        public int UserId { get; set; }
+        public int CargoId { get; set; }
     }
 }

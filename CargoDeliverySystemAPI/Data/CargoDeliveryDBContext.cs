@@ -17,8 +17,16 @@ namespace CargoDeliverySystemAPI.Data
 
 
         public DbSet<Carrier> Carrier { get; set; }
-        public DbSet<CarriersLog> CarriersLogs { get; set; }
+        public DbSet<CarrierLog> CarriersLogs { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Cargo> Cargos { get; set; }
+        public DbSet<UserCargo> UserCargos { get; set; }
+
+
+        public override int SaveChanges()
+        {
+            return base.SaveChanges();
+        }
+
     }
 }

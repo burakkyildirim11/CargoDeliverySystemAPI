@@ -14,6 +14,5 @@ namespace CargoDeliverySystemAPI.Models
         public int Id { get; set; }
         public string CustomerName { get; set; }
         public string Password { get; set; }
-        public int CargoId { get; set; }
     }
 }

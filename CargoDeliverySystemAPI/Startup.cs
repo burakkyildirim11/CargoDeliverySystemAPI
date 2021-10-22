@@ -35,6 +35,18 @@ namespace CargoDeliverySystemAPI
             });
 
 
+            services.AddScoped<ICargoDeliveryDBContext>(provider => provider.GetService<CargoDeliveryDBContext>());
+
+            services.AddCors(options => options.AddPolicy("CorsPolicy",
+            builder =>
+            {
+                builder.AllowAnyHeader()
+                       .AllowAnyMethod()
+                       .SetIsOriginAllowed((host) => true)
+                       .AllowCredentials();
+            }));
+
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "cargo delivery api", Version = "v1" });
@@ -49,9 +61,12 @@ namespace CargoDeliverySystemAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("CorsPolicy");
+
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "cargo delivery api v1"));
 
+            
 
             app.UseHttpsRedirection();
 

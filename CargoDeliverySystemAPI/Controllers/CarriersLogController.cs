@@ -1,5 +1,6 @@
 ﻿using CargoDeliverySystemAPI.Data;
 using CargoDeliverySystemAPI.Models;
+using CargoDeliverySystemAPI.Operations.CarrierLogOperations.Commands;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,47 +22,14 @@ namespace CargoDeliverySystemAPI.Controllers
             _CargoDeliveryDBContext = CargoDeliveryDBContext;
         }
 
-        // GET: api/<CarriersLogController>
-        [HttpGet]
-        public IEnumerable<CarriersLog> Get()
+        [HttpPost("CreateCarriersLog")]
+        public IActionResult CreateCarriersLog([FromBody] CreateCarrierLogCommandViewModel model)
         {
-            return _CargoDeliveryDBContext.CarriersLogs;
+            CreateCarrierLogCommand createCarriersLog = new CreateCarrierLogCommand(_CargoDeliveryDBContext);
+            createCarriersLog.Model = model;
+            return Ok(createCarriersLog.Handle());
         }
 
-        // GET api/<CarriersLogController>/5
-        [HttpGet("{id}")]
-        public CarriersLog Get(int id)
-        {
-            return _CargoDeliveryDBContext.CarriersLogs.SingleOrDefault(x => x.Id == id);
-        }
 
-        // POST api/<CarriersLogController>
-        [HttpPost]
-        public void Post([FromBody] CarriersLog carriersLog)
-        {
-            _CargoDeliveryDBContext.CarriersLogs.Add(carriersLog);
-            _CargoDeliveryDBContext.SaveChanges();
-        }
-
-        // PUT api/<CarriersLogController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] CarriersLog carriersLog)
-        {
-            carriersLog.Id = id;
-            _CargoDeliveryDBContext.CarriersLogs.Update(carriersLog);
-            _CargoDeliveryDBContext.SaveChanges();
-        }
-
-        // DELETE api/<CarriersLogController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-            var item = _CargoDeliveryDBContext.CarriersLogs.FirstOrDefault(x => x.Id == id);
-            if (item != null)
-            {
-                _CargoDeliveryDBContext.CarriersLogs.Remove(item);
-                _CargoDeliveryDBContext.SaveChanges();
-            }
-        }
     }
 }
