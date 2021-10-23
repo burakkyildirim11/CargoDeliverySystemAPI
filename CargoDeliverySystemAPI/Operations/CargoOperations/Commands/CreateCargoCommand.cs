@@ -11,12 +11,12 @@ namespace CargoDeliverySystemAPI.Operations.CargoOperations.Commands
     {
         private readonly ICargoDeliveryDBContext _cargoDeliveryDBContext;
 
-         public CreateCargoViewModel Model;
+        public CreateCargoViewModel Model;
         public CreateCargoCommand(ICargoDeliveryDBContext cargoDeliveryDBContext)
         {
             _cargoDeliveryDBContext = cargoDeliveryDBContext;
         }
-       
+
 
         public ResultModel<CreateCargoViewModel> Handle()
         {
@@ -25,10 +25,20 @@ namespace CargoDeliverySystemAPI.Operations.CargoOperations.Commands
                 Cargo cargo = new Cargo()
                 {
                     Latitude = Model.Latitude,
-                    Longitude = Model.Longitude
+                    Longitude = Model.Longitude,
+                    CargoName = Model.CargoName
                 };
 
+
                 _cargoDeliveryDBContext.Cargos.Add(cargo);
+                _cargoDeliveryDBContext.SaveChanges();
+
+                _cargoDeliveryDBContext.UserCargos.Add(new UserCargo()
+                {
+                    CargoId = cargo.Id,
+                    UserId = Model.UserId
+                }
+                );
                 _cargoDeliveryDBContext.SaveChanges();
 
                 return ResultModel<CreateCargoViewModel>.GenerateResult(Model, "Successfully written to database");
