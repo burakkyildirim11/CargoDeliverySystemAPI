@@ -17,7 +17,7 @@ namespace CargoDeliverySystemAPI.Operations.CargoOperations.Commands
         }
 
         public string cargoName;
-
+        public bool status;
         public ResultModel<Cargo> Handle()
         {
             try
@@ -25,7 +25,7 @@ namespace CargoDeliverySystemAPI.Operations.CargoOperations.Commands
                 Cargo cargo = _cargoDeliveryDBContext.Cargos.SingleOrDefault(p => p.CargoName == cargoName);
                 if (cargo != null)
                 {
-                    cargo.deliveryStatus = true;
+                    cargo.deliveryStatus = status;
                     _cargoDeliveryDBContext.SaveChanges();
 
                     return ResultModel<Cargo>.GenerateResult(cargo, "Successfully updated to database");
