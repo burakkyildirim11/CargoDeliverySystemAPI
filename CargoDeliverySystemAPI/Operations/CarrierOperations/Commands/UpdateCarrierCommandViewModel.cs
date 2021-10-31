@@ -10,5 +10,6 @@ namespace CargoDeliverySystemAPI.Operations.CarrierOperations.Commands
         public int Id { get; set; }
         public decimal NewLatitude { get; set; }
         public decimal NewLongitude { get; set; }
+        public string cargoName { get; set; }
     }
 }

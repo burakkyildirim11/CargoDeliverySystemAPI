@@ -45,10 +45,10 @@ namespace CargoDeliverySystemAPI.Controllers
         }
 
         [HttpPut("UpdateCargo")]
-        public ActionResult<ResultModel<Cargo>> UpdateCargo(int id)
+        public ActionResult<ResultModel<Cargo>> UpdateCargo(string cargoName)
         {
             UpdateCargoCommand commands = new UpdateCargoCommand(_CargoDeliveryDBContext);
-            commands.CargoId = id;
+            commands.cargoName = cargoName;
             return Ok(commands.Handle());
         }
 

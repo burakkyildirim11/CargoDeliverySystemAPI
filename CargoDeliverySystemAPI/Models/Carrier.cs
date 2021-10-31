@@ -15,6 +15,6 @@ namespace CargoDeliverySystemAPI.Models
         public string Name { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
-        public int cargoId { get; set; }
+        public string cargoName { get; set; }
     }
 }

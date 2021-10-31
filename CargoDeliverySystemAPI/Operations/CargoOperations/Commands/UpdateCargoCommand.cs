@@ -16,13 +16,13 @@ namespace CargoDeliverySystemAPI.Operations.CargoOperations.Commands
             _cargoDeliveryDBContext = cargoDeliveryDBContext;
         }
 
-        public int CargoId;
+        public string cargoName;
 
         public ResultModel<Cargo> Handle()
         {
             try
             {
-                Cargo cargo = _cargoDeliveryDBContext.Cargos.SingleOrDefault(p => p.Id == CargoId);
+                Cargo cargo = _cargoDeliveryDBContext.Cargos.SingleOrDefault(p => p.CargoName == cargoName);
                 if (cargo != null)
                 {
                     cargo.deliveryStatus = true;

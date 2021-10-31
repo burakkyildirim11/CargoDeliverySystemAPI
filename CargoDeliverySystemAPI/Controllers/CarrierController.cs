@@ -29,5 +29,12 @@ namespace CargoDeliverySystemAPI.Controllers
             return Ok(updateCarrier.Handle());
         }
 
+
+        [HttpGet("GetAllCarrier")]
+        public ActionResult<List<Carrier>> GetAllCarrier()
+        {
+            return _CargoDeliveryDBContext.Carrier.ToList();
+        }
+
     }
 }

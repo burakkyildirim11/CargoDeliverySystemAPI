@@ -28,7 +28,7 @@ namespace CargoDeliverySystemAPI.Operations.UserOperations.Commands
                     user.Password = Model.NewPassword;
                     _cargoDeliveryDBContext.SaveChanges();
 
-                    return ResultModel<UpdateUserCommandViewModel>.GenerateResult(Model, "Successfully updated to database");
+                    return ResultModel<UpdateUserCommandViewModel>.GenerateResult(Model, "Success");
                 }
 
                 return ResultModel<UpdateUserCommandViewModel>.GenerateResult(Model, "No record!");

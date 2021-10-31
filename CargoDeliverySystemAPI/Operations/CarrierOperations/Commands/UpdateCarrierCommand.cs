@@ -28,6 +28,7 @@ namespace CargoDeliverySystemAPI.Operations.CarrierOperations.Commands
                 {
                     carrier.Latitude = Model.NewLatitude;
                     carrier.Longitude = Model.NewLongitude;
+                    carrier.cargoName = Model.cargoName;
                     _cargoDeliveryDBContext.SaveChanges();
 
                     return ResultModel<UpdateCarrierCommandViewModel>.GenerateResult(Model, "Successfully updated to database(carrier)");

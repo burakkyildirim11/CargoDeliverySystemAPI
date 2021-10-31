@@ -36,7 +36,7 @@ namespace CargoDeliverySystemAPI.Operations.CargoOperations.Commands
                 _cargoDeliveryDBContext.UserCargos.Add(new UserCargo()
                 {
                     CargoId = cargo.Id,
-                    UserId = Model.UserId
+                    UserId = Model.UserId //burada gelecek userId'yi kontrol et
                 }
                 );
                 _cargoDeliveryDBContext.SaveChanges();
